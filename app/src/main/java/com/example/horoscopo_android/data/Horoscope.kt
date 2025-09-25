@@ -1,10 +1,12 @@
-package com.example.horoscopo_android
+package com.example.horoscopo_android.data
+
+import com.example.horoscopo_android.R
 
 data class Horoscope (
     val id: String,
     val name: Int,
     val dates: Int,
-    val icon: Int
+    val sign: Int
 ) {
 
     companion object {
@@ -23,6 +25,10 @@ data class Horoscope (
                 Horoscope("aquarius", R.string.horoscope_name_aquarius, R.string.horoscope_date_aquarius, R.drawable.aries_icon),
                 Horoscope("pisces", R.string.horoscope_name_pisces, R.string.horoscope_date_pisces, R.drawable.aries_icon)
             )
+        }
+
+        fun getById(id: String) : Horoscope {
+            return getAll().first { it.id == id }
         }
     }
 }

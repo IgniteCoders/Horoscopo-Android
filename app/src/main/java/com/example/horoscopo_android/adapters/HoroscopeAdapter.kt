@@ -1,4 +1,4 @@
-package com.example.horoscopo_android
+package com.example.horoscopo_android.adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,8 +6,13 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.horoscopo_android.R
+import com.example.horoscopo_android.data.Horoscope
 
-class HoroscopeAdapter(val items: List<Horoscope>) : RecyclerView.Adapter<HoroscopeViewHolder>() {
+class HoroscopeAdapter(
+    val items: List<Horoscope>,
+    val onClickListener: (Int) -> Unit
+) : RecyclerView.Adapter<HoroscopeViewHolder>() {
 
     // Cual es la vista para los elementos
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
@@ -19,6 +24,9 @@ class HoroscopeAdapter(val items: List<Horoscope>) : RecyclerView.Adapter<Horosc
     override fun onBindViewHolder(holder: HoroscopeViewHolder, position: Int) {
         val item = items[position]
         holder.render(item)
+        holder.itemView.setOnClickListener {
+            onClickListener(position)
+        }
     }
 
     // Cuantos elementos se quieren listar?
@@ -37,6 +45,6 @@ class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun render(horoscope: Horoscope) {
         nameTextView.setText(horoscope.name)
         datesTextView.setText(horoscope.dates)
-        iconImageView.setImageResource(horoscope.icon)
+        iconImageView.setImageResource(horoscope.sign)
     }
 }
