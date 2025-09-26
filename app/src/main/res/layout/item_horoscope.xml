@@ -10,8 +10,7 @@
         android:id="@+id/iconImageView"
         android:layout_width="86dp"
         android:layout_height="86dp"
-        android:src="@drawable/aries_icon"
-        app:tint="@color/horoscope_icon_color" />
+        android:src="@drawable/aries_icon"/>
 
     <LinearLayout
         android:layout_width="0dp"
