@@ -10,7 +10,7 @@ import com.example.horoscopo_android.R
 import com.example.horoscopo_android.data.Horoscope
 
 class HoroscopeAdapter(
-    val items: List<Horoscope>,
+    var items: List<Horoscope>,
     val onClickListener: (Int) -> Unit
 ) : RecyclerView.Adapter<HoroscopeViewHolder>() {
 
@@ -34,6 +34,10 @@ class HoroscopeAdapter(
         return items.size
     }
 
+    fun updateItems(items: List<Horoscope>) {
+        this.items = items
+        notifyDataSetChanged()
+    }
 }
 
 class HoroscopeViewHolder(view: View) : RecyclerView.ViewHolder(view) {

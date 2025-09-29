@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Horóscopo-Android</string>
 
+    <string name="activity_main_title">Zodiaco</string>
+
     <string name="horoscope_name_aries">Aries</string>
     <string name="horoscope_name_taurus">Tauro</string>
     <string name="horoscope_name_gemini">Géminis</string>

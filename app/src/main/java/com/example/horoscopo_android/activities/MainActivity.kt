@@ -18,8 +18,9 @@ import com.example.horoscopo_android.data.Horoscope
 class MainActivity : AppCompatActivity() {
 
     lateinit var recyclerView: RecyclerView
+    lateinit var adapter: HoroscopeAdapter
 
-    val horoscopeList: List<Horoscope> = Horoscope.Companion.getAll()
+    var horoscopeList: List<Horoscope> = Horoscope.getAll()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +32,11 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        supportActionBar?.setTitle(R.string.activity_main_title)
+
         recyclerView = findViewById(R.id.recyclerView)
 
-        val adapter = HoroscopeAdapter(horoscopeList, ::onItemClickListener)
+        adapter = HoroscopeAdapter(horoscopeList, ::onItemClickListener)
 
         /*val adapter = HoroscopeAdapter(horoscopeList) {
             val horoscope = horoscopeList[it]
@@ -54,8 +57,13 @@ class MainActivity : AppCompatActivity() {
                 return false
             }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                // TODO: Filtrar la lista de horoscopos y mostrarlos
+            override fun onQueryTextChange(newText: String): Boolean {
+                horoscopeList = Horoscope.getAll().filter {
+                    getString(it.name).contains(newText, true)
+                    || getString(it.dates).contains(newText, true)
+                }
+
+                adapter.updateItems(horoscopeList)
                 return true
             }
         })
