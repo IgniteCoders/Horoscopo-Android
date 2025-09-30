@@ -2,7 +2,6 @@ package com.example.horoscopo_android.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +35,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
-        adapter = HoroscopeAdapter(horoscopeList, ::onItemClickListener)
+        adapter = HoroscopeAdapter(emptyList(), ::onItemClickListener)
 
         /*val adapter = HoroscopeAdapter(horoscopeList) {
             val horoscope = horoscopeList[it]
@@ -45,6 +44,12 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        adapter.updateItems(horoscopeList)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
