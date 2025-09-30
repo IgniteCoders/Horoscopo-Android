@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.horoscopo_android.R
 import com.example.horoscopo_android.adapters.HoroscopeAdapter
 import com.example.horoscopo_android.data.Horoscope
+import com.example.horoscopo_android.utils.search
 
 class MainActivity : AppCompatActivity() {
 
@@ -64,8 +65,8 @@ class MainActivity : AppCompatActivity() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 horoscopeList = Horoscope.getAll().filter {
-                    getString(it.name).contains(newText, true)
-                    || getString(it.dates).contains(newText, true)
+                    getString(it.name).search(newText)
+                    || getString(it.dates).search(newText)
                 }
 
                 adapter.updateItems(horoscopeList)
