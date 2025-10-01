@@ -3,11 +3,13 @@ package com.example.horoscopo_android.activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.horoscopo_android.R
@@ -21,6 +23,9 @@ class MainActivity : AppCompatActivity() {
     lateinit var adapter: HoroscopeAdapter
 
     var horoscopeList: List<Horoscope> = Horoscope.getAll()
+
+    var isGridViewEnabled = false
+    lateinit var viewModeMenu: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,15 +41,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView = findViewById(R.id.recyclerView)
 
-        adapter = HoroscopeAdapter(emptyList(), ::onItemClickListener)
-
-        /*val adapter = HoroscopeAdapter(horoscopeList) {
-            val horoscope = horoscopeList[it]
-            goToDetail(horoscope)
-        }*/
-
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(this)
+        setupViewMode()
     }
 
     override fun onResume() {
@@ -53,10 +50,13 @@ class MainActivity : AppCompatActivity() {
         adapter.updateItems(horoscopeList)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.activity_main_menu, menu)
 
-        val searchView = menu!!.findItem(R.id.action_search).actionView as SearchView
+        viewModeMenu = menu.findItem(R.id.action_view_mode)
+        setViewModeMenu()
+
+        val searchView = menu.findItem(R.id.action_search).actionView as SearchView
 
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -75,6 +75,37 @@ class MainActivity : AppCompatActivity() {
         })
 
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_view_mode -> {
+                isGridViewEnabled = !isGridViewEnabled
+                setupViewMode()
+                setViewModeMenu()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setupViewMode() {
+        if (isGridViewEnabled) {
+            adapter = HoroscopeAdapter(horoscopeList, ::onItemClickListener, R.layout.item_horoscope_grid)
+            recyclerView.layoutManager = GridLayoutManager(this, 2)
+        } else {
+            adapter = HoroscopeAdapter(horoscopeList, ::onItemClickListener, R.layout.item_horoscope_list)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+        }
+        recyclerView.adapter = adapter
+    }
+
+    private fun setViewModeMenu() {
+        if (isGridViewEnabled) {
+            viewModeMenu.setIcon(R.drawable.ic_list_view)
+        } else {
+            viewModeMenu.setIcon(R.drawable.ic_grid_view)
+        }
     }
 
     fun onItemClickListener(position: Int) {

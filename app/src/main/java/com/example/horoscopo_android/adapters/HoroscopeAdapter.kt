@@ -12,12 +12,13 @@ import com.example.horoscopo_android.utils.SessionManager
 
 class HoroscopeAdapter(
     var items: List<Horoscope>,
-    val onClickListener: (Int) -> Unit
+    val onClickListener: (Int) -> Unit,
+    val layout: Int
 ) : RecyclerView.Adapter<HoroscopeViewHolder>() {
 
     // Cual es la vista para los elementos
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HoroscopeViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_horoscope, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
         return HoroscopeViewHolder(view)
     }
 
