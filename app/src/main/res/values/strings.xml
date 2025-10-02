@@ -34,4 +34,8 @@
     <string name="menu_share">Share</string>
     <string name="menu_view_mode">View mode</string>
 
+    <string name="menu_calendar_daily">Daily</string>
+    <string name="menu_calendar_weekly">Weekly</string>
+    <string name="menu_calendar_monthly">Monthly</string>
+
 </resources>

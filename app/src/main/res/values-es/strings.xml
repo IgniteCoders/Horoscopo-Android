@@ -33,5 +33,8 @@
     <string name="menu_favorite">Favorito</string>
     <string name="menu_share">Compartir</string>
     <string name="menu_view_mode">Modo vista</string>
+    <string name="menu_calendar_daily">Diario</string>
+    <string name="menu_calendar_weekly">Semanal</string>
+    <string name="menu_calendar_monthly">Mensual</string>
 
 </resources>
