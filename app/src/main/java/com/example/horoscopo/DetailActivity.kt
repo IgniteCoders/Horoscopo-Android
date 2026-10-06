@@ -22,10 +22,12 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
-        val id = intent.getStringExtra("HOROSCOPE_ID")
+        val id = intent.getStringExtra("HOROSCOPE_ID")!!
 
-        supportActionBar?.title = id
-        supportActionBar?.subtitle = "Subtitulo"
+        val horoscope = Horoscope.getById(id)
+
+        supportActionBar?.setTitle(horoscope.name)
+        supportActionBar?.setSubtitle(horoscope.dates)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_search)
     }
