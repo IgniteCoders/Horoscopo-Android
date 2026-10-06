@@ -57,6 +57,11 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
+                horoscopeList = Horoscope.getAll().filter {
+                    getString(it.name).search(newText) ||
+                    getString(it.dates).search(newText)
+                }
+                adapter.updateData(horoscopeList)
                 return true
             }
         })
