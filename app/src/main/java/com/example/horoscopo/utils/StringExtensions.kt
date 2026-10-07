@@ -1,4 +1,4 @@
-package com.example.horoscopo
+package com.example.horoscopo.utils
 
 import java.text.Normalizer
 

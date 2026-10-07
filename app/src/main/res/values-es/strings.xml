@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Horoscopo-Android</string>
+    <string name="app_name">Horoscopo</string>
 
     <string name="horoscope_name_aries">Aries</string>
     <string name="horoscope_name_taurus">Tauro</string>

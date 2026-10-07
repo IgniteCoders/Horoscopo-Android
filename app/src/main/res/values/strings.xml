@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Horoscopo-Android</string>
+    <string name="app_name">Horoscope</string>
 
     <string name="horoscope_name_aries">Aries</string>
     <string name="horoscope_name_taurus">Taurus</string>
