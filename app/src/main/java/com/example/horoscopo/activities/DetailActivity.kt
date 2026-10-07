@@ -1,5 +1,6 @@
 package com.example.horoscopo.activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -72,7 +73,13 @@ class DetailActivity : AppCompatActivity() {
                 true
             }
             R.id.menu_share -> {
+                val sendIntent = Intent()
+                sendIntent.action = Intent.ACTION_SEND
+                sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my horoscope: ${getString(horoscope.name)}.")
+                sendIntent.type = "text/plain"
 
+                val shareIntent = Intent.createChooser(sendIntent, null)
+                startActivity(shareIntent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
