@@ -10,8 +10,16 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.horoscopo.data.Horoscope
 import com.example.horoscopo.R
+import com.example.horoscopo.utils.SessionManager
 
 class DetailActivity : AppCompatActivity() {
+
+    lateinit var session: SessionManager
+
+    lateinit var horoscope: Horoscope
+    var isFavorite = false
+
+    lateinit var favoriteMenuItem: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,18 +31,27 @@ class DetailActivity : AppCompatActivity() {
             insets
         }
 
+        session = SessionManager(this)
+
         val id = intent.getStringExtra("HOROSCOPE_ID")!!
 
-        val horoscope = Horoscope.getById(id)
+        horoscope = Horoscope.getById(id)
 
         supportActionBar?.setTitle(horoscope.name)
         supportActionBar?.setSubtitle(horoscope.dates)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_search)
+
+        // Preguntar si el horoscopo es favorito para rellenar el corazon del menu
+        isFavorite = session.isFavorite(id)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.activity_detail_menu, menu)
+
+        favoriteMenuItem = menu.findItem(R.id.menu_favorite)
+
+        setFavoriteIcon()
         return true
     }
 
@@ -45,16 +62,28 @@ class DetailActivity : AppCompatActivity() {
                 true
             }
             R.id.menu_favorite -> {
-                // Me haces una cosa
-                Toast.makeText(this, "Favorito", Toast.LENGTH_SHORT).show()
+                if (isFavorite) {
+                    session.setFavorite("")
+                } else {
+                    session.setFavorite(horoscope.id)
+                }
+                isFavorite = !isFavorite
+                setFavoriteIcon()
                 true
             }
             R.id.menu_share -> {
-                // Me haces otra cosa
-                Toast.makeText(this, "Compartir", Toast.LENGTH_SHORT).show()
+
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun setFavoriteIcon() {
+        if (isFavorite) {
+            favoriteMenuItem.setIcon(R.drawable.ic_favorite_selected)
+        } else {
+            favoriteMenuItem.setIcon(R.drawable.ic_favorite)
         }
     }
 }
