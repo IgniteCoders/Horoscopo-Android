@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,6 +24,10 @@ class DetailActivity : AppCompatActivity() {
 
     lateinit var favoriteMenuItem: MenuItem
 
+    lateinit var signImageView: ImageView
+    lateinit var nameTextView: TextView
+    lateinit var datesTextView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -31,6 +37,10 @@ class DetailActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+        signImageView = findViewById(R.id.signImageView)
+        nameTextView = findViewById(R.id.nameTextView)
+        datesTextView = findViewById(R.id.datesTextView)
 
         session = SessionManager(this)
 
@@ -42,6 +52,10 @@ class DetailActivity : AppCompatActivity() {
         supportActionBar?.setSubtitle(horoscope.dates)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         //supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_search)
+
+        nameTextView.setText(horoscope.name)
+        datesTextView.setText(horoscope.dates)
+        signImageView.setImageResource(horoscope.sign)
 
         // Preguntar si el horoscopo es favorito para rellenar el corazon del menu
         isFavorite = session.isFavorite(id)
