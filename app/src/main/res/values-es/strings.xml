@@ -31,4 +31,8 @@
     <string name="menu_search">Buscar</string>
     <string name="menu_favorite">Favorito</string>
     <string name="menu_share">Compartir</string>
+
+    <string name="menu_daily">Hoy</string>
+    <string name="menu_weekly">Semanal</string>
+    <string name="menu_monthly">Mensual</string>
 </resources>

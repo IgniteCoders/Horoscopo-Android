@@ -31,4 +31,26 @@
         tools:text="Horoscope dates"
         android:textSize="16sp"/>
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/predictionTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Prediction..."
+            android:textSize="18sp"
+            android:paddingHorizontal="16dp"
+            android:paddingVertical="8dp"/>
+
+    </ScrollView>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:menu="@menu/activity_detail_navigation_menu" />
+
 </LinearLayout>
